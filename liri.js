@@ -8,8 +8,6 @@ require("dotenv").config();
 var keys = require("./keys.js");
 // Grab Axios package
 var axios = require("axios");
-// Grab File System package
-var fs = require("fs");
 
 // Store user input
 var action = process.argv[2];
@@ -102,6 +100,7 @@ function spotifySong(input) {
     // Call to API with user input
     spotify.search({ type: 'track', query: input }, function (err, data) {
         if (err) {
+            // Log error
             console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");             
             console.log("      LIRI can not understand fake song names!         >.<");
             console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");            
@@ -190,5 +189,29 @@ function movieThis(input) {
 
 // Using fs Node package use text inside random.txt to call one of LIRI's commands.
 function doWhatItSays() {
+    // Grab File System package
+    var fs = require("fs");
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        // Split random.txt array and store each index as variables
+        let randomArr = data.split(",")
+        let action = randomArr[0];
+        let input = randomArr[1];
+        
+        // Switch statement decides which function to call dependent on random.txt
+        switch (action) {
+            case "spotify-this-song":
+                spotifySong(input);
+                break;
+            case "concert-this":
+                concertThis(input);
+                break;
+            case "movie-this":
+                movieThis(input);
+                break;
+        }
+    });
 
 }
