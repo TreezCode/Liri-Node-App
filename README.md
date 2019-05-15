@@ -17,3 +17,4 @@ The `commands` are:
 * `movie-this`
 * `do-what-it-says`
 
+<img src="assets/images/LIRI-rules" alt="drawing" width="200"/>
