@@ -17,4 +17,4 @@ The `commands` are:
 * `movie-this`
 * `do-what-it-says`
 
-<img src="assets/images/LIRI-rules" alt="drawing" width="200"/>
+<img src="assets/images/LIRI-rules.png" alt="LIRI Instructions" width="200"/>
