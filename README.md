@@ -25,6 +25,12 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 ## How it Works 🔨
 
-#### spotify-this-song
+### spotify-this-song
 
-This command searches the `Node-Spotify-API` by taking in user input as a parameter for the call.
+The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve song information.
+
+#### Examples
+
+<img src="assets/images/spotifyExample" alt="LIRI Instructions" width="25%"/><img src="assets/images/spotifyExample1" alt="LIRI Instructions" width="25%"/>
+
+* The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a client id and client secret:
