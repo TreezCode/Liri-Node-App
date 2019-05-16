@@ -8,7 +8,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ## How to Use 🤔
 
-The user has four options, or commands, to choose from. The command chosen, combined with a specific "parameter", or input, set by the user will return a table of logged data.
+The user has four options, or commands, to choose from. The command chosen combined with a specific "parameter", or input, set by the user will return a table of logged data.
 
 The `commands` are:
 
