@@ -8,7 +8,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ## How to Use 🤔
 
-The user has four options, or commands, to choose from. The command chosen, combined with a specific "parameter" set by the user, will return a table of logged data.
+The user has four options, or commands, to choose from. The command chosen, combined with a specific "parameter", or input, set by the user will return a table of logged data.
 
 The `commands` are:
 
@@ -25,7 +25,7 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 ## How it Works 🔨
 
-### spotify-this-song 🎧
+### 🎧 spotify-this-song
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve relevant song information.
 
@@ -76,29 +76,32 @@ spotify.search({ type: 'track', query: input }, function (err, data) {
 
 The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can either login to your existing Spotify account or create a new one (a free account is fine) and log in. From there you will be able to generate a **client id** and **client secret**.
 
-### concert-this 🎸
+### 🎸 concert-this
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
 ```
 axios.get(queryURL)
 .then(function (response) {
     // Store data object
-    let concertData = response.data[0];
-    // Prettify date using Moment
-    let formatDate = moment(concertData.datetime).format("MM-DD-YYYY");
-    // Log concert info
-    console.log(
-        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
-        "         LIRI Bands in Town response for " + input + "!" + "\r\n" + "\r\n" + 
-        "_________________________________________________________________" + "\r\n" + 
-        "Venue:            " + concertData.venue.name + "\r\n" +
-        "_________________________________________________________________" + "\r\n" +
-        "Location:         " + concertData.venue.city + ", " + concertData.venue.country + "\r\n" +
-        "_________________________________________________________________" + "\r\n" +
-        "Date:             " + formatDate + "\r\n" +
-        "_________________________________________________________________" + "\r\n" + "\r\n" +
-        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    );            
+    let concertData = response.data;
+    // Iterate through response to parse each concert
+    for(var i = 0; i < concertData.length; i++) {
+        // Prettify date using Moment
+        let formatDate = moment(concertData[i].datetime).format("MM-DD-YYYY");
+        // Log concert info
+        console.log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
+            "         LIRI Bands in Town response for " + input + "!" + "\r\n" + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Venue:            " + concertData[i].venue.name + "\r\n" +
+            "_________________________________________________________________" + "\r\n" +
+            "Location:         " + concertData[i].venue.city + ", " + concertData[i].venue.country + "\r\n" +
+            "_________________________________________________________________" + "\r\n" +
+            "Date:             " + formatDate + "\r\n" +
+            "_________________________________________________________________" + "\r\n" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        );
+    }            
 })
 ```
 
@@ -110,7 +113,7 @@ axios.get(queryURL)
 
 The *Bands in Town API* response sends back the date in a poor UX format. `Moment.js` was used to **format** the date in a more user friendly manner. (MM/DD/YYY)
 
-### movie-this 📺
+### 📺 movie-this
 
 The `movie-this` command searches the `OMDB API` by sending user input as a parameter in the `Axios` call to retrieve relevant movie information.
 
@@ -155,3 +158,17 @@ axios.get(queryUrl)
 * `movie-this "The Matrix"`
 
 The `OMDB API` requires you to provide a unique **API Key** to retrieve a data response. You can do this by signing up for a developer account to recieve a *personal* key or you may use `trilogy`.
+
+## Getting Started 🏁
+
+The following steps will get you a copy of the application up and running on your local machine for testing and grading puproses.
+
+1. Clone this repository from github.
+2. Git clone repository in IDE of choice
+3. Open folder in text-editor of choice
+4. Create a `.env` file (Personal credentials will live here)
+5. In `.env` place these lines:
+`SPOTIFY_ID=<YOUR SPOTIFY ID HERE>`
+`SPOTIFY_SECRET=<YOUR SPOTIFY SECRET HERE>`
+`OMDB_API=<YOUR OMDB API KEY HERE>` or `OMDB_API=trilogy`
+6. If all pre-requisites are met, open application in IDE and run the app by typing `node liri.js`!
