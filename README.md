@@ -4,7 +4,7 @@
 
 LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. Liri is a command line node-app that takes in specific parameters and gives the user back data.
 
-<img src="assets/images/Liri-Node-GIF.gif" alt="LIRI Gif">
+<img src="assets/images/main.gif" alt="LIRI Gif">
 
 ## How to Use 🤔
 
@@ -17,7 +17,7 @@ The `commands` are:
 * `movie-this`
 * `do-what-it-says`
 
-<img src="assets/images/LIRI-rules.png" alt="LIRI Rules" width="75%"/>
+<img src="assets/images/rules.png" alt="LIRI Rules" width="75%"/>
 
 **Remember**
 
@@ -27,7 +27,7 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 ### 🎧 spotify-this-song
 
-<img src="assets/images/liri-spotify-gif.gif" alt="LIRI Spotify"/>
+<img src="assets/images/spotify-this.gif" alt="LIRI Spotify"/>
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve relevant song information.
 
@@ -80,7 +80,7 @@ The *Spotify API* requires you sign up as a developer to generate the necessary 
 
 ### 🎸 concert-this
 
-<img src="assets/images/liri-concert-gif.gif" alt="LIRI Concert"/>
+<img src="assets/images/concert-this.gif" alt="LIRI Concert"/>
 
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
@@ -121,7 +121,7 @@ The *Bands in Town API* response sends back the date in a poor UX format. `Momen
 
 ### 📺 movie-this
 
-<img src="assets/images/liri-movie-gif.gif" alt="LIRI Movie"/>
+<img src="assets/images/movie-this.gif" alt="LIRI Movie"/>
 
 The `movie-this` command searches the `OMDB API` by sending user input as a parameter in the `Axios` call to retrieve relevant movie information.
 
@@ -169,7 +169,7 @@ The `OMDB API` requires you to provide a unique **API Key** to retrieve a data r
 
 ### 📓 do-what-it-says
 
-<img src="assets/images/liri-do-gif.gif" alt="LIRI Do"/>
+<img src="assets/images/do-what.gif" alt="LIRI Do"/>
 
 The `do-what-is-says` commands reads through the random.txt file and uses that text to perform another one of LIRI's commands.
 
