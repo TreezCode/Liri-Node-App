@@ -8,6 +8,8 @@ require("dotenv").config();
 var keys = require("./keys.js");
 // Grab Axios package
 var axios = require("axios");
+// Require Node.js File System
+var fs = require("fs");
 
 // Store user input
 var action = process.argv[2];
@@ -18,35 +20,37 @@ var input = process.argv[3];
 // ===================================================================
 // Determine which function to call dependent on user input
 function userCommand() {
-    switch (action) {
-        case "concert-this":
-            concertThis(input);
-            break;
-        case "spotify-this-song":
-            spotifySong(input);
-            break;
-        case "movie-this":
-            movieThis(input);
-            break;
-        case "do-what-it-says":
-            doWhatItSays();
-            break;
-        default: // Log instructions if no action is found
-        console.log(
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +
-            "********************     Welcome to LIRI     ********************" + "\r\n" + "\r\n" +         
-            "                    * * * Instructions: * * *" + "\r\n" + "\r\n" + 
-            "Try typing one of the following commands after 'node liri.js' : " + "\r\n" + "\r\n" +
-            "   1. concert-this 'any musician name' " + "\r\n" +
-            "   2. spotify-this-song 'any song name' " + "\r\n" +
-            "   3. movie-this 'any movie name' " + "\r\n" +
-            "   4. do-what-it-says." + "\r\n" + "\r\n" + 
-            "                         * * NOTE * *" + "\r\n" + 
-            "If the movie title or song name has more than ONE word, use quotation marks." + "\r\n" +
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        );             
-    }
-}
+    if(input !== null || input !== undefined) {
+        switch (action) {
+            case "concert-this":
+                concertThis(input);
+                break;
+            case "spotify-this-song":
+                spotifySong(input);
+                break;
+            case "movie-this":
+                movieThis(input);
+                break;
+            case "do-what-it-says":
+                doWhatItSays();
+                break;
+            default: // Log instructions if proper action is not found
+            console.log(
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +
+                "********************     Welcome to LIRI     ********************" + "\r\n" + "\r\n" +         
+                "                    * * * Instructions: * * *" + "\r\n" + "\r\n" + 
+                "Try typing one of the following commands after 'node liri.js' : " + "\r\n" + "\r\n" +
+                "   1. concert-this 'any musician name' " + "\r\n" +
+                "   2. spotify-this-song 'any song name' " + "\r\n" +
+                "   3. movie-this 'any movie name' " + "\r\n" +
+                "   4. do-what-it-says." + "\r\n" + "\r\n" + 
+                "                         * * NOTE * *" + "\r\n" + 
+                "If the movie title or song name has more than ONE word, use quotation marks." + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            );             
+        }
+    }    
+}  
 userCommand();
 
 // Access Bands in Town Artist Events API and output venue name, location, and date of event.
@@ -74,7 +78,19 @@ function concertThis() {
             // Log concert info
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
-                "         LIRI Bands in Town response for " + input + "!" + "\r\n" + "\r\n" + 
+                "         LIRI Bands in Town response #" + i + " for "  + input + "!" + "\r\n" + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + 
+                "Venue:            " + concertData[i].venue.name + "\r\n" +
+                "_________________________________________________________________" + "\r\n" +
+                "Location:         " + concertData[i].venue.city + ", " + concertData[i].venue.country + "\r\n" +
+                "_________________________________________________________________" + "\r\n" +
+                "Date:             " + formatDate + "\r\n" +
+                "_________________________________________________________________" + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            );
+            fs.appendFileSync("log.txt", "\r\n" + 
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
+                "         LIRI Bands in Town response #" + i + " for "  + input + "!" + "\r\n" + "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
                 "Venue:            " + concertData[i].venue.name + "\r\n" +
                 "_________________________________________________________________" + "\r\n" +
@@ -88,6 +104,12 @@ function concertThis() {
     })
     .catch(function (error) {
         console.log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
+            "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
+            'Error occurred: ' + error
+        );
+        fs.appendFileSync("error.txt", "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
@@ -120,6 +142,12 @@ function spotifySong(input) {
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +          
                 'Error occurred: ' + err
             );
+            fs.appendFileSync("error.txt", "\r\n" + 
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +             
+                "          Oops... LIRI cannot find any data         >.<" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +          
+                'Error occurred: ' + err
+            );
             return;
         } else if (!err) {
             // Store data object
@@ -131,11 +159,27 @@ function spotifySong(input) {
                 "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
                 "_________________________________________________________________"
             );
-                // Iterate through artist array if multiple artists
-                for(var i = 0; i < song.artists.length; i++) {
-                    console.log("Artist:       " + song.artists[i].name);
-                }
+            fs.appendFileSync("log.txt", "\r\n" + 
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
+                "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
+                "_________________________________________________________________"
+            );
+            // Iterate through artist array if multiple artists
+            for(var i = 0; i < song.artists.length; i++) {
+                console.log("Artist:       " + song.artists[i].name);
+                fs.appendFileSync("log.txt",  "\r\n" +  "Artist:       " + song.artists[i].name);
+            }
             console.log(
+                "_________________________________________________________________" + "\r\n" + 
+                "Song:         " + song.name + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + 
+                "Album:        " + song.album.name + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + 
+                "Preview:      " + song.preview_url + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            );
+            fs.appendFileSync("log.txt", "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
                 "Song:         " + song.name + "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
@@ -159,6 +203,13 @@ function movieThis(input) {
     if(input === undefined || input === null) {
         input = "Mr. Nobody";
         console.log(
+            "*****************************************************************" + "\r\n" + 
+            "             If you haven't watched 'Mr. Nobody.'" + "\r\n" +  
+            "     Then you should: http://www.imdb.com/title/tt0485947/" + "\r\n" + 
+            "                      It's on Netflix!" + "\r\n" + 
+            "*****************************************************************"
+        );
+        fs.appendFileSync("log.txt", "\r\n" + 
             "*****************************************************************" + "\r\n" + 
             "             If you haven't watched 'Mr. Nobody.'" + "\r\n" +  
             "     Then you should: http://www.imdb.com/title/tt0485947/" + "\r\n" + 
@@ -197,10 +248,38 @@ function movieThis(input) {
             "Plot: " + movieData.Plot + "\r\n" + 
             "_________________________________________________________________" + "\r\n" + "\r\n" +
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        );                
+        );
+        fs.appendFileSync("log.txt", "\r\n" + 
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" + 
+            "              LIRI OMDB response for " + input + "!" + "\r\n" + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Title:                   " + movieData.Title + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Cast: " + movieData.Actors + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Year Released:           " + movieData.Year + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "IMDB Rating:             " + movieData.imdbRating + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Rotten Tomatoes Score:   " + movieData.Ratings[1].Value + "\r\n" + 
+            "_________________________________________________________________"  + "\r\n" + 
+            "Country Produced:        " + movieData.Country + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Language:                " + movieData.Language + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" +     
+            "Plot: " + movieData.Plot + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        );
     })
     .catch(function (error) {
         console.log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
+            "          Oops... LIRI cannot find any data        >.<" + "\r\n" + 
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
+            'Error occurred: ' + error
+        );
+        fs.appendFileSync("error.txt",  "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
             "          Oops... LIRI cannot find any data        >.<" + "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
