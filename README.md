@@ -239,8 +239,11 @@ The following steps will get you a copy of the application up and running on you
 ## Creator ✋
 
 **Joey Kubalak**
+
 AKA 
+
 👇
+
 *Treez*
 
 Github profile 👉 [TreezCode](https://github.com/TreezCode)
