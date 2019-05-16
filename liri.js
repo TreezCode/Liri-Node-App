@@ -122,22 +122,17 @@ function spotifySong(input) {
         } else if (!err) {
             // Store data object
             let songData = data.tracks.items
-                
             let song = songData[0];
-
-            
             // Log song data for user
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
                 "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
                 "_________________________________________________________________"
-            ); 
-
+            );
                 // Iterate through artist array if multiple artists
                 for(var i = 0; i < song.artists.length; i++) {
                     console.log("Artist:       " + song.artists[i].name);
                 }
-
             console.log(
                 "_________________________________________________________________" + "\r\n" + 
                 "Song:         " + song.name + "\r\n" + 

@@ -29,10 +29,50 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve song information.
 
+``` spotify.search({ type: 'track', query: input }, function (err, data) {
+        if (err) {
+            // Log error
+            console.log(
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +             
+                "          Oops... LIRI cannot find any data         >.<" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +          
+                'Error occurred: ' + err
+            );
+            return;
+        } else if (!err) {
+            // Store data object
+            let songData = data.tracks.items
+            let song = songData[0];
+            // Log song data for user
+            console.log(
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
+                "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
+                "_________________________________________________________________"
+            );
+                // Iterate through artist array if multiple artists
+                for(var i = 0; i < song.artists.length; i++) {
+                    console.log("Artist:       " + song.artists[i].name);
+                }
+            console.log(
+                "_________________________________________________________________" + "\r\n" + 
+                "Song:         " + song.name + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + 
+                "Album:        " + song.album.name + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + 
+                "Preview:      " + song.preview_url + "\r\n" + 
+                "_________________________________________________________________" + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            );
+        }
+    });
+```
+
 #### Examples
 
-<img src="assets/images/spotifyExample.png" alt="LIRI Instructions" width="50%"/>
+* `spotify-this-song "Bohemian Rhapsody"`
+* `spotify-this-song "Never Gonna Give You Up"`
+* `spotify-this-song "2009 Mac Miller"`
+* `spotify-this-song "One Love Bob Marley"`
 
-<img src="assets/images/spotifyExample1.png" alt="LIRI Instructions" width="50%"/>
 
-* The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a client id and client secret:
+The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a client id and client secret:
