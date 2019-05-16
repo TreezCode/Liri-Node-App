@@ -4,7 +4,7 @@
 
 LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. Liri is a command line node-app that takes in specific parameters and gives the user back data.
 
-![LIRI GIF](assets/images/Liri-Node-GIF.gif)
+<img src="assets/images/Liri-Node-GIF.gif" alt="LIRI Gif">
 
 ## How to Use 🤔
 
