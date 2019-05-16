@@ -17,7 +17,7 @@ The `commands` are:
 * `movie-this`
 * `do-what-it-says`
 
-<img src="assets/images/LIRI-rules.png" alt="LIRI Instructions" width="75%"/>
+<img src="assets/images/LIRI-rules.png" alt="LIRI Rules" width="75%"/>
 
 **Remember**
 
@@ -26,6 +26,8 @@ If the band/artist or movie name you enter has more than one word, you must use 
 ## How it Works 🔨
 
 ### 🎧 spotify-this-song
+
+<img src="assets/images/liri-spotify-gif.gif" alt="LIRI Spotify" width="75%"/>
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve relevant song information.
 
@@ -77,6 +79,9 @@ spotify.search({ type: 'track', query: input }, function (err, data) {
 The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can either login to your existing Spotify account or create a new one (a free account is fine) and log in. From there you will be able to generate a **client id** and **client secret**.
 
 ### 🎸 concert-this
+
+<img src="assets/images/liri-concert-gif.gif" alt="LIRI Concert" width="75%"/>
+
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
 ```
@@ -115,6 +120,8 @@ axios.get(queryURL)
 The *Bands in Town API* response sends back the date in a poor UX format. `Moment.js` was used to **format** the date in a more user friendly manner. (MM/DD/YYY)
 
 ### 📺 movie-this
+
+<img src="assets/images/liri-movie-gif.gif" alt="LIRI Movie" width="75%"/>
 
 The `movie-this` command searches the `OMDB API` by sending user input as a parameter in the `Axios` call to retrieve relevant movie information.
 
@@ -160,6 +167,41 @@ axios.get(queryUrl)
 
 The `OMDB API` requires you to provide a unique **API Key** to retrieve a data response. You can do this by signing up for a developer account to recieve a *personal* key or you may use `trilogy`.
 
+### 📓 do-what-it-says
+
+<img src="assets/images/liri-do-gif.gif" alt="LIRI Do" width="75%"/>
+
+The `do-what-is-says` commands reads through the random.txt file and uses that text to perform another one of LIRI's commands.
+
+```
+fs.readFile("random.txt", "utf8", function(error, data) {
+    if (error) {
+        return console.log(error);
+    }
+
+    // Split random.txt array and store each index as variables
+    let randomArr = data.split(",")
+    let action = randomArr[0];
+    let input = randomArr[1];
+    
+    // Decides which function to call dependent on random.txt
+    switch (action) {
+        case "spotify-this-song":
+            spotifySong(input);
+            break;
+        case "concert-this":
+            concertThis(input);
+            break;
+        case "movie-this":
+            movieThis(input);
+            break;
+        default: "";
+    }
+});
+```
+
+The `fs Node Package` is used to read the text inside the random.txt file.
+
 ## Pre-Requisites
 
 To retrieve the data that will power this app, you'll need to send requests using NPM packages. Downloading the following Node packages is crucial for this applications functionality.
@@ -196,8 +238,9 @@ The following steps will get you a copy of the application up and running on you
 
 ## Creator ✋
 
-**Joey Kubalak** AKA *Treez*
+**Joey Kubalak**
+AKA 
+👇
+*Treez*
 
-👇 Github profile
-
-[TreezCode](https://github.com/TreezCode)
+Github profile 👉 [TreezCode](https://github.com/TreezCode)
