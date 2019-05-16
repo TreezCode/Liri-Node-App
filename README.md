@@ -31,6 +31,8 @@ The `spotify-this-song` command searches the `Node-Spotify-API` by sending user 
 
 #### Examples
 
-<img src="assets/images/spotifyExample.png" alt="LIRI Instructions" width="25%"/><img src="assets/images/spotifyExample1.png" alt="LIRI Instructions" width="25%"/>
+<img src="assets/images/spotifyExample.png" alt="LIRI Instructions" width="50%"/>
+
+<img src="assets/images/spotifyExample1.png" alt="LIRI Instructions" width="50%"/>
 
 * The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a client id and client secret:
