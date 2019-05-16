@@ -80,6 +80,7 @@ The *Spotify API* requires you sign up as a developer to generate the necessary 
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
 ```
+let queryURL = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
 axios.get(queryURL)
 .then(function (response) {
     // Store data object
@@ -181,3 +182,22 @@ The following steps will get you a copy of the application up and running on you
 `SPOTIFY_SECRET=<YOUR SPOTIFY SECRET HERE>`
 `OMDB_API=<YOUR OMDB API KEY HERE>`
 6. If all pre-requisites are met, open application in IDE and run by typing `node liri.js`!
+
+## Technologies Used 💻
+
+* Axios
+* Git
+* Javascript ES5
+* JSON
+* Node.js
+* NPM
+* Moment.js
+* VS Code
+
+## Creator ✋
+
+**Joey Kubalak** AKA *Treez*
+
+Github profile 👇
+
+[TreezCode](https://github.com/TreezCode)

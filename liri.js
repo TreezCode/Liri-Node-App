@@ -62,7 +62,6 @@ function concertThis() {
 
     // Build URL with user input
     let queryURL = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
-
     // Axios call to API
     axios.get(queryURL)
     .then(function (response) {
