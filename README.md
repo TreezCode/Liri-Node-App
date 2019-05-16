@@ -25,7 +25,7 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 ## How it Works 🔨
 
-### spotify-this-song
+### spotify-this-song 🎧
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve relevant song information.
 
@@ -76,8 +76,7 @@ spotify.search({ type: 'track', query: input }, function (err, data) {
 
 The *Spotify API* requires you sign up as a developer to generate the necessary credentials. You can either login to your existing Spotify account or create a new one (a free account is fine) and log in. From there you will be able to generate a **client id** and **client secret**.
 
-### concert-this
-
+### concert-this 🎸
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
 ```
@@ -111,4 +110,48 @@ axios.get(queryURL)
 
 The *Bands in Town API* response sends back the date in a poor UX format. `Moment.js` was used to **format** the date in a more user friendly manner. (MM/DD/YYY)
 
-### movie-this
+### movie-this 📺
+
+The `movie-this` command searches the `OMDB API` by sending user input as a parameter in the `Axios` call to retrieve relevant movie information.
+
+```
+var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=" + omdb;
+axios.get(queryUrl)
+.then(function (response) {
+
+    // Store data object
+    let movieData = response.data;
+
+    // Log Movie info
+    console.log(
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" + 
+        "              LIRI OMDB response for " + input + "!" + "\r\n" + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "Title:                   " + movieData.Title + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "Cast: " + movieData.Actors + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "Year Released:           " + movieData.Year + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "IMDB Rating:             " + movieData.imdbRating + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "Rotten Tomatoes Score:   " + movieData.Ratings[1].Value + "\r\n" + 
+        "_________________________________________________________________"  + "\r\n" + 
+        "Country Produced:        " + movieData.Country + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + 
+        "Language:                " + movieData.Language + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" +     
+        "Plot: " + movieData.Plot + "\r\n" + 
+        "_________________________________________________________________" + "\r\n" + "\r\n" +
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    );                
+})
+```
+
+#### Examples
+
+* `movie-this "The Beach"`
+* `movie-this "Guardians of the Galaxy"`
+* `movie-this "The Matrix"`
+
+The `OMDB API` requires you to provide a unique **API Key** to retrieve a data response. You can do this by signing up for a developer account to recieve a *personal* key or you may use `trilogy`.
