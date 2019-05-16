@@ -66,32 +66,32 @@ function concertThis() {
     // Axios call to API
     axios.get(queryURL)
     .then(function (response) {
-            // Store data object
-            let concertData = response.data[0];
-            // Prettify date using Moment
-            let formatDate = moment(concertData.datetime).format("MM-DD-YYYY");
-            // Log concert info
-            console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
-                "         LIRI Bands in Town response for " + input + "!" + "\r\n" + "\r\n" + 
-                "_________________________________________________________________" + "\r\n" + 
-                "Venue:            " + concertData.venue.name + "\r\n" +
-                "_________________________________________________________________" + "\r\n" +
-                "Location:         " + concertData.venue.city + ", " + concertData.venue.country + "\r\n" +
-                "_________________________________________________________________" + "\r\n" +
-                "Date:             " + formatDate + "\r\n" +
-                "_________________________________________________________________" + "\r\n" + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            );            
-        })
-        .catch(function (error) {
-            console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
-                "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
-                'Error occurred: ' + error
-            );
-        });
+        // Store data object
+        let concertData = response.data[0];
+        // Prettify date using Moment
+        let formatDate = moment(concertData.datetime).format("MM-DD-YYYY");
+        // Log concert info
+        console.log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
+            "         LIRI Bands in Town response for " + input + "!" + "\r\n" + "\r\n" + 
+            "_________________________________________________________________" + "\r\n" + 
+            "Venue:            " + concertData.venue.name + "\r\n" +
+            "_________________________________________________________________" + "\r\n" +
+            "Location:         " + concertData.venue.city + ", " + concertData.venue.country + "\r\n" +
+            "_________________________________________________________________" + "\r\n" +
+            "Date:             " + formatDate + "\r\n" +
+            "_________________________________________________________________" + "\r\n" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        );            
+    })
+    .catch(function (error) {
+        console.log(
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
+            "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
+            'Error occurred: ' + error
+        );
+    });
 }
 
 // Acess Spotify API and output artist, song name, album, and preview link
