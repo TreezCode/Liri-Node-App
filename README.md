@@ -159,6 +159,15 @@ axios.get(queryUrl)
 
 The `OMDB API` requires you to provide a unique **API Key** to retrieve a data response. You can do this by signing up for a developer account to recieve a *personal* key or you may use `trilogy`.
 
+## Pre-Requisites
+
+To retrieve the data that will power this app, you'll need to send requests using NPM packages. Downloading the following Node packages is crucial for this applications functionality.
+
+* Node-Spotify-API `npm install node-spotify-api`
+* Axios `npm install axios`
+* Moment `npm install moment`
+* DotEnv `npm install dotenv`
+
 ## Getting Started 🏁
 
 The following steps will get you a copy of the application up and running on your local machine for testing and grading puproses.
@@ -170,5 +179,5 @@ The following steps will get you a copy of the application up and running on you
 5. In `.env` place these lines:
 `SPOTIFY_ID=<YOUR SPOTIFY ID HERE>`
 `SPOTIFY_SECRET=<YOUR SPOTIFY SECRET HERE>`
-`OMDB_API=<YOUR OMDB API KEY HERE>` or `OMDB_API=trilogy`
-6. If all pre-requisites are met, open application in IDE and run the app by typing `node liri.js`!
+`OMDB_API=<YOUR OMDB API KEY HERE>`
+6. If all pre-requisites are met, open application in IDE and run by typing `node liri.js`!
