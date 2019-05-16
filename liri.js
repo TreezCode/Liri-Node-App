@@ -130,7 +130,8 @@ function spotifySong(input) {
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
                 "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
-                "_________________________________________________________________"); 
+                "_________________________________________________________________"
+            ); 
 
                 // Iterate through artist array if multiple artists
                 for(var i = 0; i < song.artists.length; i++) {
