@@ -9,7 +9,7 @@ var keys = require("./keys.js");
 // Grab Axios package
 var axios = require("axios");
 // Grab Moment.js package
-let moment = require('moment');
+var moment = require('moment');
 // Grab Node.js File System
 var fs = require("fs");
 // Grab Colors package
