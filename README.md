@@ -27,7 +27,7 @@ If the band/artist or movie name you enter has more than one word, you must use 
 
 ### 🎧 spotify-this-song
 
-<img src="assets/images/spotify-this.gif" alt="LIRI Spotify"/>
+<img src="assets/images/spotify-this.gif" alt="LIRI Spotify" width="75%"/>
 
 The `spotify-this-song` command searches the `Node-Spotify-API` by sending user input as a parameter for the call to retrieve relevant song information.
 
@@ -80,7 +80,7 @@ The *Spotify API* requires you sign up as a developer to generate the necessary 
 
 ### 🎸 concert-this
 
-<img src="assets/images/concert-this.gif" alt="LIRI Concert"/>
+<img src="assets/images/concert-this.gif" alt="LIRI Concert" width="75%"/>
 
 The `concert-this` command searches the `Bands in Town API` by sending user input as a parameter in the `Axios` call to retrieve relevant concert information.
 
@@ -121,7 +121,7 @@ The *Bands in Town API* response sends back the date in a poor UX format. `Momen
 
 ### 📺 movie-this
 
-<img src="assets/images/movie-this.gif" alt="LIRI Movie"/>
+<img src="assets/images/movie-this.gif" alt="LIRI Movie" width="75%"/>
 
 The `movie-this` command searches the `OMDB API` by sending user input as a parameter in the `Axios` call to retrieve relevant movie information.
 
