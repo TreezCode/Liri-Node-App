@@ -210,6 +210,7 @@ To retrieve the data that will power this app, you'll need to send requests usin
 * Axios `npm install axios`
 * Moment `npm install moment`
 * DotEnv `npm install dotenv`
+* Colors `npm install colors`
 
 ## Getting Started 🏁
 
