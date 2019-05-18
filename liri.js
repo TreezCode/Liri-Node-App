@@ -8,6 +8,8 @@ require("dotenv").config();
 var keys = require("./keys.js");
 // Grab Axios package
 var axios = require("axios");
+// Grab Moment.js package
+let moment = require('moment');
 // Require Node.js File System
 var fs = require("fs");
 // Require Colors
@@ -58,26 +60,25 @@ userCommand();
 // Access Bands in Town Artist Events API and output venue name, location, and date of event.
 function concertThis() {
 
-    // Grab Moment.js package
-    let moment = require('moment');
 
     // If no input then default artist is "Rick Astley"
     if(input === undefined || input === null) {
+        // Log user input in log.txt
+        actionLog(input);
         input = "Rick Astley"
     }
 
     // Build URL with user input
     let queryURL = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
-    // Axios call to API
     axios.get(queryURL)
     .then(function (response) {
+        // Log user input in log.txt
+        actionLog(input);
         // Store data object
         let concertData = response.data;
         // Iterate through response to parse each concert
         for(var i = 0; i < concertData.length; i++) {
-            // Prettify date using Moment
             let formatDate = moment(concertData[i].datetime).format("MM-DD-YYYY");
-            // Log concert info
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" + "\r\n" +                           
                 "         LIRI Bands in Town response ".cyan +"#" + i + " for ".cyan  + input + "!" + "\r\n" + "\r\n" + 
@@ -105,6 +106,8 @@ function concertThis() {
         }            
     })
     .catch(function (error) {
+        // Log error in error.txt
+        errorLog(input)
         console.log(
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
@@ -138,6 +141,8 @@ function spotifySong(input) {
     // Call to API with user input
     spotify.search({ type: 'track', query: input }, function (err, data) {
         if (err) {
+             // Log error in error.txt
+            errorLog(input)
             // Log error
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +             
@@ -153,6 +158,8 @@ function spotifySong(input) {
             );
             return;
         } else if (!err) {
+            // Log user input in log.txt
+            actionLog(input);
             // Store data object
             let songData = data.tracks.items
             let song = songData[0];
@@ -205,6 +212,8 @@ function movieThis(input) {
     // If input not found then default "Mr.Nobody"
     if(input === undefined || input === null) {
         input = "Mr. Nobody";
+        // Log user input in log.txt
+        actionLog(input);
         console.log(
             "*****************************************************************".blue + "\r\n" + 
             "             If you haven't watched 'Mr. Nobody.'".cyan + "\r\n" +  
@@ -225,7 +234,8 @@ function movieThis(input) {
     var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=" + omdb;
     axios.get(queryUrl)
     .then(function (response) {
-
+        // Log user input in log.txt
+        actionLog(input);
         // Store data object
         let movieData = response.data;
 
@@ -276,6 +286,8 @@ function movieThis(input) {
         );
     })
     .catch(function (error) {
+        // Log error in error.txt
+        errorLog(input)
         console.log(
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
             "          Oops... LIRI cannot find any data        >.<" + "\r\n" + 
@@ -297,6 +309,8 @@ function doWhatItSays() {
     var fs = require("fs");
     fs.readFile("random.txt", "utf8", function(error, data) {
         if (error) {
+            // Log error in error.txt
+            errorLog(input)
             return console.log(error);
         }
 
@@ -319,4 +333,18 @@ function doWhatItSays() {
             default: "";
         }
     });
+}
+
+// Stores user input into a log.txt file with date and time of each command. 
+function actionLog(input) {
+    var actionItem = [moment().format("MM/DD/YYYY hh:mm A"), " " + action, " " + input];
+    actionItem = "\r\n" + "\r\n" + "* * * " + actionItem + " * * *";
+    fs.appendFileSync('log.txt', actionItem)
+}
+
+// Stores errors into a error.txt file to record each error with date and time. 
+function errorLog(input, error) {
+    var errorItem = [moment().format("MM/DD/YYYY hh:mm A"), action, input, error];
+    errorItem = "\r\n" + "\r\n" + "* * * " + errorItem + " * * *";;
+    fs.appendFileSync('error.txt', errorItem)
 }
