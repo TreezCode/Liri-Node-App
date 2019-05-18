@@ -10,6 +10,8 @@ var keys = require("./keys.js");
 var axios = require("axios");
 // Require Node.js File System
 var fs = require("fs");
+// Require Colors
+var colors = require("colors")
 
 // Store user input
 var action = process.argv[2];
@@ -36,17 +38,17 @@ function userCommand() {
                 break;
             default: // Log instructions if proper action is not found
             console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +
-                "********************     Welcome to LIRI     ********************" + "\r\n" + "\r\n" +         
-                "                    * * * Instructions: * * *" + "\r\n" + "\r\n" + 
-                "Try typing one of the following commands after 'node liri.js' : " + "\r\n" + "\r\n" +
-                "   1. concert-this 'any musician name' " + "\r\n" +
-                "   2. spotify-this-song 'any song name' " + "\r\n" +
-                "   3. movie-this 'any movie name' " + "\r\n" +
-                "   4. do-what-it-says." + "\r\n" + "\r\n" + 
-                "                         * * NOTE * *" + "\r\n" + 
-                "If the movie title or song name has more than ONE word, use quotation marks." + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +
+                "********************     ".red + "Welcome to LIRI".white + "     ********************".red + "\r\n" + "\r\n" +         
+                "                    * * * Instructions: * * *".cyan + "\r\n" + "\r\n" + 
+                "Try typing one of the following commands after 'node liri.js' : ".cyan + "\r\n" + "\r\n" +
+                "   1. ".white + "concert-this 'any musician name' " + "\r\n" +
+                "   2. ".white + "spotify-this-song 'any song name' " + "\r\n" +
+                "   3. ".white + "movie-this 'any movie name' " + "\r\n" +
+                "   4. ".white + "do-what-it-says." + "\r\n" + "\r\n" + 
+                "                         * * NOTE * *".yellow + "\r\n" + 
+                "If the movie title or song name has more than ONE word, use quotation marks.".cyan + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
             );             
         }
     }    
@@ -77,16 +79,16 @@ function concertThis() {
             let formatDate = moment(concertData[i].datetime).format("MM-DD-YYYY");
             // Log concert info
             console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
-                "         LIRI Bands in Town response #" + i + " for "  + input + "!" + "\r\n" + "\r\n" + 
-                "_________________________________________________________________" + "\r\n" + 
-                "Venue:            " + concertData[i].venue.name + "\r\n" +
-                "_________________________________________________________________" + "\r\n" +
-                "Location:         " + concertData[i].venue.city + ", " + concertData[i].venue.country + "\r\n" +
-                "_________________________________________________________________" + "\r\n" +
-                "Date:             " + formatDate + "\r\n" +
-                "_________________________________________________________________" + "\r\n" + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" + "\r\n" +                           
+                "         LIRI Bands in Town response ".cyan +"#" + i + " for ".cyan  + input + "!" + "\r\n" + "\r\n" + 
+                "_________________________________________________________________".white + "\r\n" + 
+                "Venue:            ".cyan + concertData[i].venue.name + "\r\n" +
+                "_________________________________________________________________".white + "\r\n" +
+                "Location:         ".cyan + concertData[i].venue.city + ", " + concertData[i].venue.country + "\r\n" +
+                "_________________________________________________________________".white + "\r\n" +
+                "Date:             ".cyan + formatDate + "\r\n" +
+                "_________________________________________________________________".white + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
             );
             fs.appendFileSync("log.txt", "\r\n" + 
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" +                           
@@ -109,6 +111,7 @@ function concertThis() {
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             'Error occurred: ' + error
         );
+        fs.appendFileSync("error.txt")
         fs.appendFileSync("error.txt", "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
@@ -137,9 +140,9 @@ function spotifySong(input) {
         if (err) {
             // Log error
             console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +             
-                "          Oops... LIRI cannot find any data         >.<" + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +          
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +             
+                "          Oops... LIRI cannot find any data         >.<".red + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +          
                 'Error occurred: ' + err
             );
             fs.appendFileSync("error.txt", "\r\n" + 
@@ -155,9 +158,9 @@ function spotifySong(input) {
             let song = songData[0];
             // Log song data for user
             console.log(
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
-                "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
-                "_________________________________________________________________"
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +                 
+                "\r\n" + "       LIRI Spotify response for ".cyan + input + "!".cyan + "\r\n" + "\r\n" +              
+                "_________________________________________________________________".white
             );
             fs.appendFileSync("log.txt", "\r\n" + 
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                 
@@ -166,26 +169,26 @@ function spotifySong(input) {
             );
             // Iterate through artist array if multiple artists
             for(var i = 0; i < song.artists.length; i++) {
-                console.log("Artist:       " + song.artists[i].name);
-                fs.appendFileSync("log.txt",  "\r\n" +  "Artist:       " + song.artists[i].name);
+                console.log("Artist:         ".cyan + song.artists[i].name);
+                fs.appendFileSync("log.txt",  "\r\n" +  "Artist:         " + song.artists[i].name);
             }
             console.log(
-                "_________________________________________________________________" + "\r\n" + 
-                "Song:         " + song.name + "\r\n" + 
-                "_________________________________________________________________" + "\r\n" + 
-                "Album:        " + song.album.name + "\r\n" + 
-                "_________________________________________________________________" + "\r\n" + 
-                "Preview:      " + song.preview_url + "\r\n" + 
-                "_________________________________________________________________" + "\r\n" + "\r\n" +
-                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                "_________________________________________________________________".white + "\r\n" + 
+                "Song:           ".cyan + song.name + "\r\n" + 
+                "_________________________________________________________________".white + "\r\n" + 
+                "Album:          ".cyan + song.album.name + "\r\n" + 
+                "_________________________________________________________________".white + "\r\n" + 
+                "Preview:        ".cyan + song.preview_url + "\r\n" + 
+                "_________________________________________________________________".white + "\r\n" + "\r\n" +
+                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
             );
             fs.appendFileSync("log.txt", "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
-                "Song:         " + song.name + "\r\n" + 
+                "Song:           " + song.name + "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
-                "Album:        " + song.album.name + "\r\n" + 
+                "Album:          " + song.album.name + "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + 
-                "Preview:      " + song.preview_url + "\r\n" + 
+                "Preview:        " + song.preview_url + "\r\n" + 
                 "_________________________________________________________________" + "\r\n" + "\r\n" +
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
             );
@@ -203,11 +206,11 @@ function movieThis(input) {
     if(input === undefined || input === null) {
         input = "Mr. Nobody";
         console.log(
-            "*****************************************************************" + "\r\n" + 
-            "             If you haven't watched 'Mr. Nobody.'" + "\r\n" +  
-            "     Then you should: http://www.imdb.com/title/tt0485947/" + "\r\n" + 
-            "                      It's on Netflix!" + "\r\n" + 
-            "*****************************************************************"
+            "*****************************************************************".blue + "\r\n" + 
+            "             If you haven't watched 'Mr. Nobody.'".cyan + "\r\n" +  
+            "     Then you should: http://www.imdb.com/title/tt0485947/".cyan + "\r\n" + 
+            "                      It's on Netflix!".red + "\r\n" +
+            "*****************************************************************".blue
         );
         fs.appendFileSync("log.txt", "\r\n" + 
             "*****************************************************************" + "\r\n" + 
@@ -228,26 +231,26 @@ function movieThis(input) {
 
         // Log Movie info
         console.log(
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" + 
-            "              LIRI OMDB response for " + input + "!" + "\r\n" + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "Title:                   " + movieData.Title + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "Cast: " + movieData.Actors + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "Year Released:           " + movieData.Year + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "IMDB Rating:             " + movieData.imdbRating + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "Rotten Tomatoes Score:   " + movieData.Ratings[1].Value + "\r\n" + 
-            "_________________________________________________________________"  + "\r\n" + 
-            "Country Produced:        " + movieData.Country + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + 
-            "Language:                " + movieData.Language + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" +     
-            "Plot: " + movieData.Plot + "\r\n" + 
-            "_________________________________________________________________" + "\r\n" + "\r\n" +
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" + "\r\n" + 
+            "              LIRI OMDB response for ".cyan + input + "!".cyan + "\r\n" + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "Title:                   ".cyan + movieData.Title + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "Cast: ".cyan + movieData.Actors + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "Year Released:           ".cyan + movieData.Year + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "IMDB Rating:             ".cyan + movieData.imdbRating + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "Rotten Tomatoes Score:   ".cyan + movieData.Ratings[1].Value + "\r\n" + 
+            "_________________________________________________________________".white  + "\r\n" + 
+            "Country Produced:        ".cyan + movieData.Country + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + 
+            "Language:                ".cyan + movieData.Language + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" +     
+            "Plot: ".cyan + movieData.Plot + "\r\n" + 
+            "_________________________________________________________________".white + "\r\n" + "\r\n" +
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
         );
         fs.appendFileSync("log.txt", "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + "\r\n" + 
