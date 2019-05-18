@@ -45,7 +45,7 @@ function userCommand() {
                 "   1. ".white + "concert-this 'any musician name' " + "\r\n" +
                 "   2. ".white + "spotify-this-song 'any song name' " + "\r\n" +
                 "   3. ".white + "movie-this 'any movie name' " + "\r\n" +
-                "   4. ".white + "do-what-it-says." + "\r\n" + "\r\n" + 
+                "   4. ".white + "do-what-it-says" + "\r\n" + "\r\n" + 
                 "                         * * NOTE * *".yellow + "\r\n" + 
                 "If the movie title or song name has more than ONE word, use quotation marks.".cyan + "\r\n" + "\r\n" +
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
