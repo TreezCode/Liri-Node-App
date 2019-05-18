@@ -1,5 +1,5 @@
 
-// GLOBAL
+// GLOBALS
 // ===================================================================
 // Set environmental variables
 require("dotenv").config();
@@ -10,15 +10,14 @@ var keys = require("./keys.js");
 var axios = require("axios");
 // Grab Moment.js package
 let moment = require('moment');
-// Require Node.js File System
+// Grab Node.js File System
 var fs = require("fs");
-// Require Colors
+// Grab Colors package
 var colors = require("colors")
 
 // Store user input
 var action = process.argv[2];
 var input = process.argv[3];
-
 
 // FUNCTIONS
 // ===================================================================
@@ -59,12 +58,11 @@ userCommand();
 
 // Access Bands in Town Artist Events API and output venue name, location, and date of event.
 function concertThis() {
-
+    // Log user input in log.txt
+    actionLog(input);
 
     // If no input then default artist is "Rick Astley"
     if(input === undefined || input === null) {
-        // Log user input in log.txt
-        actionLog(input);
         input = "Rick Astley"
     }
 
@@ -72,10 +70,9 @@ function concertThis() {
     let queryURL = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
     axios.get(queryURL)
     .then(function (response) {
-        // Log user input in log.txt
-        actionLog(input);
         // Store data object
         let concertData = response.data;
+
         // Iterate through response to parse each concert
         for(var i = 0; i < concertData.length; i++) {
             let formatDate = moment(concertData[i].datetime).format("MM-DD-YYYY");
@@ -126,10 +123,11 @@ function concertThis() {
 
 // Acess Spotify API and output artist, song name, album, and preview link
 function spotifySong(input) {
+    // Log user input in log.txt
+    actionLog(input);
 
     // Grab Spotify package
     let Spotify = require('node-spotify-api');
-
     // Access Spotify keys data
     let spotify = new Spotify(keys.spotify);
 
@@ -158,11 +156,10 @@ function spotifySong(input) {
             );
             return;
         } else if (!err) {
-            // Log user input in log.txt
-            actionLog(input);
             // Store data object
             let songData = data.tracks.items
             let song = songData[0];
+
             // Log song data for user
             console.log(
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow + "\r\n" +                 
@@ -174,11 +171,13 @@ function spotifySong(input) {
                 "\r\n" + "       LIRI Spotify response for " + input + "!" + "\r\n" + "\r\n" +              
                 "_________________________________________________________________"
             );
+
             // Iterate through artist array if multiple artists
             for(var i = 0; i < song.artists.length; i++) {
                 console.log("Artist:         ".cyan + song.artists[i].name);
                 fs.appendFileSync("log.txt",  "\r\n" +  "Artist:         " + song.artists[i].name);
             }
+
             console.log(
                 "_________________________________________________________________".white + "\r\n" + 
                 "Song:           ".cyan + song.name + "\r\n" + 
@@ -205,6 +204,8 @@ function spotifySong(input) {
 
 // Access OMDB API and output movie title, year released, IMDB rating, Rotten Tomatoes rating, country produced, language, plot, and actors.
 function movieThis(input) {
+    // Log user input in log.txt
+    actionLog(input);
 
     // Export API Key and store as variable
     let omdb = keys.omdb.APIKey;
@@ -212,8 +213,6 @@ function movieThis(input) {
     // If input not found then default "Mr.Nobody"
     if(input === undefined || input === null) {
         input = "Mr. Nobody";
-        // Log user input in log.txt
-        actionLog(input);
         console.log(
             "*****************************************************************".blue + "\r\n" + 
             "             If you haven't watched 'Mr. Nobody.'".cyan + "\r\n" +  
@@ -229,13 +228,11 @@ function movieThis(input) {
             "*****************************************************************"
         );
     }
-
-    // Build URL with user input and exported API key
+ 
+    // Build URL with user input and exported API key to make call
     var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=" + omdb;
     axios.get(queryUrl)
     .then(function (response) {
-        // Log user input in log.txt
-        actionLog(input);
         // Store data object
         let movieData = response.data;
 
@@ -288,6 +285,7 @@ function movieThis(input) {
     .catch(function (error) {
         // Log error in error.txt
         errorLog(input)
+
         console.log(
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" + 
             "          Oops... LIRI cannot find any data        >.<" + "\r\n" + 
