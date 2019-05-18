@@ -13,7 +13,7 @@ var moment = require('moment');
 // Grab Node.js File System
 var fs = require("fs");
 // Grab Colors package
-var colors = require("colors")
+var colors = require("colors");
 
 // Store user input
 var action = process.argv[2];
@@ -47,7 +47,7 @@ function userCommand() {
                 "   2. ".white + "spotify-this-song 'any song name' " + "\r\n" +
                 "   3. ".white + "movie-this 'any movie name' " + "\r\n" +
                 "   4. ".white + "do-what-it-says" + "\r\n" + "\r\n" + 
-                "                         * * NOTE * *".yellow + "\r\n" + 
+                "                           * * NOTE * *".yellow + "\r\n" + 
                 "If the movie title or song name has more than ONE word, use quotation marks.".cyan + "\r\n" + "\r\n" +
                 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".rainbow
             );             
@@ -203,8 +203,6 @@ function spotifySong(input) {
 
 // Access OMDB API and output movie title, year released, IMDB rating, Rotten Tomatoes rating, country produced, language, plot, and actors.
 function movieThis(input) {
-    // Log user input in log.txt
-    actionLog(input);
 
     // Export API Key and store as variable
     let omdb = keys.omdb.APIKey;
@@ -227,7 +225,8 @@ function movieThis(input) {
             "*****************************************************************"
         );
     }
- 
+    // Log user input in log.txt
+    actionLog(input);
     // Build URL with user input and exported API key to make call
     var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=" + omdb;
     axios.get(queryUrl)
