@@ -169,7 +169,7 @@ The `OMDB API` requires you to provide a unique **API Key** to retrieve a data r
 
 ### 📓 do-what-it-says
 
-<img src="assets/images/do-what.gif" alt="LIRI Do" width="75it %"/>
+<img src="assets/images/do-what.gif" alt="LIRI Do" width="75%"/>
 
 The `do-what-is-says` commands reads through the random.txt file and uses that text to perform another one of LIRI's commands.
 
