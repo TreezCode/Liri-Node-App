@@ -111,7 +111,6 @@ function concertThis() {
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             'Error occurred: ' + error
         );
-        fs.appendFileSync("error.txt")
         fs.appendFileSync("error.txt", "\r\n" + 
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\r\n" +                       
             "          Oops... LIRI cannot find any data    >.<" + "\r\n" +
